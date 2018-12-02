@@ -1,15 +1,7 @@
-# PART 1 : I was dumb and didnt realize you dont need to strip the operand when casting to int
-lines = [line.rstrip('\n') for line in open('advent1.txt')]
-count = 0
-for token in lines:
-    if token[0] == '+':
-        count += int(token[1:])
-    else: 
-        count -= int(token[1:])
-print(count)
+# PART 1 
+print(sum(int(x) for x in [line.rstrip('\n') for line in open('advent1.txt')]))
 
 # PART 2
-
 class CyclicQueue():
     def __init__(self, items):
         self.items = items
