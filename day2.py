@@ -1,3 +1,4 @@
+from utils import timed
 ids = [line.rstrip('\n') for line in open('day2.txt')]
 
 def first_part():
@@ -7,7 +8,7 @@ def first_part():
         times.append((1 if counts.get(2) else 0, 1 if counts.get(3) else 0))
     return sum([x[0] for x in times]) * sum(x[1] for x in times)
 
-
+@timed
 def second_part():
     for x in ids:
         for y in ids:
