@@ -20,6 +20,7 @@ def second_part():
             if amt_diff == 1:
                 return y[:index_remove] + y[index_remove + 1:]
 
+
 print(first_part())
 print(second_part())
 
