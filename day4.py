@@ -1,7 +1,6 @@
 import datetime
 from collections import defaultdict, namedtuple, Counter
 from re import match
-gaurds = dict()
 
 with open('day4.txt') as f:
     lines = f.read().strip().split('\n')
@@ -33,6 +32,5 @@ def part_two():
     id = max(gaurds, key=lambda x: max(gaurds[x].values()))
     return max(gaurds[id], key=lambda x: gaurds[id][x]) * id
     
-
 print(part_one())
 print(part_two())
