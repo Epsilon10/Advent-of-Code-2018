@@ -1,7 +1,7 @@
 from collections import namedtuple, defaultdict
 import numpy as np
 from itertools import product
-
+from utils import timed
 def manhatten_dist(p1, p2):
     return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
 
@@ -17,6 +17,7 @@ y_min = coords[:,1].min()
 x_max = coords[:,0].max()
 y_max = coords[:,1].max()
 
+@timed
 def part_one():
     counter = [0]*len(coords)
     for x in range(x_min, x_max+1):
@@ -29,6 +30,7 @@ def part_one():
     counter = np.array(counter, dtype=int)
     return counter[counter<1e6].max()
 
+@timed
 def part_two():
     area = 0
     for x in range(x_min, x_max+1):
