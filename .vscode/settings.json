@@ -15,6 +15,9 @@
         "cstdlib": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "sstream": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp"
     }
 }
