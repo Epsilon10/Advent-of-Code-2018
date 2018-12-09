@@ -8,10 +8,11 @@
 #include <string>
 #include <algorithm>
 std::vector<std::string> read_file_lines(const std::string& filename);
-
+std::string part_one(const std::map<char, std::vector<char> >& tasks);
+int part_two(const std::map<char, std::vector<char> >& tasks);
 int main() {
-    std::string filename = "day7.txt";
-    std::vector<std::string> lines = read_file_lines(filename);
+    const std::string filename = "day7.txt";
+    const std::vector<std::string> lines = read_file_lines(filename);
     
     std::map<char, std::vector<char> > tasks;
     for (const std::string& line : lines) {
@@ -24,9 +25,12 @@ int main() {
             tasks.insert(std::pair<char, std::vector<char> >(after, std::vector<char>()));
         }
         tasks[after].push_back(before);
-        
     }
-    
+    std::cout << "Part 1: " << part_one(tasks) << std::endl;
+    std::cout << "Part 2: " << part_two(tasks) << std::endl;
+}
+
+std::string part_one(const std::map<char, std::vector<char> >& tasks) {
     std::vector<char> done_ord;
     std::set<char> done;
 
@@ -49,21 +53,59 @@ int main() {
         }
     }
 
-    
-    for (const auto& e : done_ord) {
-        std::cout << e;
+    std::string result(done_ord.begin(), done_ord.end());
+    return result;
+}
+
+int part_two(const std::map<char, std::vector<char> >& tasks) {
+    int cur_time = 0;
+    std::set<char> done;
+    std::map<char, int> current;
+
+    while (done.size() != tasks.size()) {
+        for (const auto& [after, befores] : tasks) {
+            if (std::find(done.begin(), done.end(), after) == done.end() && current.find(after) == current.end()) {
+                bool to_add = true;
+                for (const auto& t : befores) {
+                    if (std::find(done.begin(), done.end(), t) == done.end()) {
+                        to_add = false;
+                        break;
+                    }
+                }
+                if (to_add) {
+                    current[after] = 60 + int(after) - 64;
+                    if (current.size() == 5)
+                        break;
+                }
+            }
+        }
+
+        auto nxt_step_res = *std::min_element(current.begin(), current.end(),
+                      [](decltype(current)::value_type& l, decltype(current)::value_type& r) -> bool { return l.second < r.second; });
+        int nxt_step = nxt_step_res.second;
+        cur_time += nxt_step;
+
+        for (const auto& [task, val] : current) {
+            current[task] -= nxt_step;
+            if (current[task] == 0)
+                done.insert(task);
+        }
+
+        for (const char& t : done) {
+            if (current.find(t) != current.end()) 
+                current.erase(t);
+        }
     }
-    std::cout << "\n";
-    
+
+    return cur_time;
+
 }
 
 std::vector<std::string> read_file_lines(const std::string& filename) {
     std::ifstream file(filename);
     std::vector<std::string> lines;
     for( std::string line; getline( file, line ); )
-    {
         lines.push_back(line);
-    }
     
     return lines;
     
