@@ -26,14 +26,23 @@ int main() {
         }
         tasks[after].push_back(before);
     }
-    std::cout << "Part 1: " << part_one(tasks) << std::endl;
-    std::cout << "Part 2: " << part_two(tasks) << std::endl;
+
+    std::clock_t begin = clock();
+    std::string p_1 = part_one(tasks);
+    std::clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    std::cout << "Part 1: " << p_1 << " took: " << elapsed_secs << " seconds. " << std::endl;
+    begin = clock();
+    int p_2 = part_two(tasks);
+    end = clock();
+    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    std::cout << "Part 2: " << p_2 << " took: " << elapsed_secs << " seconds. " << std::endl;
 }
 
 std::string part_one(const std::map<char, std::vector<char> >& tasks) {
     std::vector<char> done_ord;
     std::set<char> done;
-
+    
     while (done.size() != tasks.size()) {
         for (const auto& [after, befores] : tasks) {
             if (std::find(done.begin(), done.end(), after) == done.end()) {

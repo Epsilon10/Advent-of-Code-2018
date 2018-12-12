@@ -18,6 +18,10 @@
         "utility": "cpp",
         "sstream": "cpp",
         "iosfwd": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "algorithm": "cpp",
+        "list": "cpp",
+        "deque": "cpp",
+        "string": "cpp"
     }
 }
