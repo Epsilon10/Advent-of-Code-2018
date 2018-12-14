@@ -22,6 +22,8 @@
         "algorithm": "cpp",
         "list": "cpp",
         "deque": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "tuple": "cpp",
+        "iostream": "cpp"
     }
 }
